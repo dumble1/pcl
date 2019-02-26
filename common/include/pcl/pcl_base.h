@@ -57,7 +57,7 @@
 namespace pcl
 {
   // definitions used everywhere
-  typedef boost::shared_ptr <std::vector<int> > IndicesPtr;
+  typedef boost::shared_ptr <std::vector<size_t> > IndicesPtr;      //index can be larger than int size
   typedef boost::shared_ptr <const std::vector<int> > IndicesConstPtr;
 
   /////////////////////////////////////////////////////////////////////////////////////////
