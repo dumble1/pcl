@@ -104,12 +104,13 @@ pcl::UniformSampling<PointT>::applyFilter (PointCloud &output)
     ijk[2] = static_cast<int> (floor (input_->points[(*indices_)[cp]].z * inverse_leaf_size_[2]));
 
     // Compute the leaf index
-    int idx = (ijk - min_b_).dot (divb_mul_);
+    // vertex index can be larger than integer limit.
+    size_t idx = (ijk - min_b_).dot (divb_mul_);  
     Leaf& leaf = leaves_[idx];
     // First time we initialize the index
     if (leaf.idx == -1)
     {
-      leaf.idx = (*indices_)[cp];
+      leaf.idx = (*indices_)[cp]; // indices has  int.
       continue;
     }
 
