@@ -111,7 +111,7 @@ namespace pcl
       struct Leaf
       {
         Leaf () : idx (-1) { }
-        size_t idx;                   // index can be larger than int size
+        int idx;                   // index can be larger than int size
       };
 
       /** \brief The 3D grid leaves. */
