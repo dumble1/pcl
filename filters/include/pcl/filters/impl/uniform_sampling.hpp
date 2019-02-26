@@ -109,6 +109,8 @@ pcl::UniformSampling<PointT>::applyFilter (PointCloud &output)
     //size_t idx = (ijk - min_b_).dot (divb_mul_);  
     Eigen::Vector4i tmp_ijk = (ijk-min_b_);
     size_t idx = static_cast<size_t>(tmp_ijk[0])*divb_mul_[0]+ static_cast<size_t>(tmp_ijk[1])*divb_mul_[1]+ static_cast<size_t>(tmp_ijk[2])*divb_mul_[2];
+    //debug
+    PCL_WARN("this is index number: %zu",idx);
     Leaf& leaf = leaves_[idx];
     // First time we initialize the index
     if (leaf.idx == -1)
