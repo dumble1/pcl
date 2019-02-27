@@ -120,7 +120,7 @@ pcl::UniformSampling<PointT>::applyFilter (PointCloud &output)
     // Check to see if this point is closer to the leaf center than the previous one we saved
     float diff_cur   = (input_->points[(*indices_)[cp]].getVector4fMap () - ijk.cast<float> ()).squaredNorm ();
     float diff_prev  = (input_->points[leaf.idx].getVector4fMap ()        - ijk.cast<float> ()).squaredNorm ();
-/*
+
     // If current point is closer, copy its index instead
     if (diff_cur < diff_prev)
     {
@@ -130,12 +130,12 @@ pcl::UniformSampling<PointT>::applyFilter (PointCloud &output)
       }
 
       leaf.idx = (*indices_)[cp];
-    }   Debugging */ 
+    } 
   }
 
   // Second pass: go over all leaves and copy data
   output.points.resize (leaves_.size ());
-  int cp = 0;
+  size_t cp = 0;
 
   //Debug
   PCL_WARN("this is the size of leaves: %zu\n",leaves_.size());
