@@ -145,7 +145,7 @@ pcl::UniformSampling<PointT>::applyFilter (PointCloud &output)
       PCL_WARN("This is green error one. !\n");
       continue;
     }
-    output.points[cp++] << input_->points[it->second.idx];
+    output.points[cp++] = input_->points[it->second.idx];
   }
   output.width = static_cast<uint32_t> (output.points.size ());
   //Debug
