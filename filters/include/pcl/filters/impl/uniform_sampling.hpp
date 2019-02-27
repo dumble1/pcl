@@ -109,8 +109,6 @@ pcl::UniformSampling<PointT>::applyFilter (PointCloud &output)
     //size_t idx = (ijk - min_b_).dot (divb_mul_);  
     Eigen::Vector4i tmp_ijk = (ijk-min_b_);
     size_t idx = static_cast<size_t>(tmp_ijk[0])*divb_mul_[0]+ static_cast<size_t>(tmp_ijk[1])*divb_mul_[1]+ static_cast<size_t>(tmp_ijk[2])*divb_mul_[2];
-    //debug
-    PCL_WARN("this is index number: %zu",idx);
     Leaf& leaf = leaves_[idx];
     // First time we initialize the index
     if (leaf.idx == -1)
@@ -139,9 +137,14 @@ pcl::UniformSampling<PointT>::applyFilter (PointCloud &output)
   output.points.resize (leaves_.size ());
   int cp = 0;
 
+  //Debug
+  PCL_WARN("this is the size of leaves: %zu\n",leaves_.size());
+  
   for (typename boost::unordered_map<size_t, Leaf>::const_iterator it = leaves_.begin (); it != leaves_.end (); ++it)
     output.points[cp++] = input_->points[it->second.idx];
   output.width = static_cast<uint32_t> (output.points.size ());
+  //Debug
+  PCL_WARN("this is the output size: %zu\n", output.points.size());
 }
 
 #define PCL_INSTANTIATE_UniformSampling(T) template class PCL_EXPORTS pcl::UniformSampling<T>;
