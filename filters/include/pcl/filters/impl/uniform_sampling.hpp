@@ -135,13 +135,17 @@ pcl::UniformSampling<PointT>::applyFilter (PointCloud &output)
 
   // Second pass: go over all leaves and copy data
   output.points.resize (leaves_.size ());
-  size_t cp = 0;
+  int cp = 0;
 
   //Debug
   PCL_WARN("this is the size of leaves: %zu\n",leaves_.size());
   
-  for (typename boost::unordered_map<size_t, Leaf>::const_iterator it = leaves_.begin (); it != leaves_.end (); ++it)
-    output.points[cp++] = input_->points[it->second.idx];
+  for (typename boost::unordered_map<size_t, Leaf>::const_iterator it = leaves_.begin (); it != leaves_.end (); ++it){
+    if(input_->points[it->second.idx].z > 300){   //This is green !!
+      PCL_WARN("This is green error one. !\n");
+    }
+    output.points[cp++] << input_->points[it->second.idx];
+  }
   output.width = static_cast<uint32_t> (output.points.size ());
   //Debug
   PCL_WARN("this is the output size: %zu\n", output.points.size());
