@@ -53,6 +53,10 @@ pcl::UniformSampling<PointT>::applyFilter (PointCloud &output)
     output.points.clear ();
     return;
   }
+  PCL_WARN("test for uni sampling input_!!\n");
+  output.width = static_cast<int>(input_->points.size());
+  output = *input_;
+  return ;
 
   output.height       = 1;                    // downsampling breaks the organized structure
   output.is_dense     = true;                 // we filter out invalid points
