@@ -69,7 +69,7 @@ pcl::UniformSampling<PointT>::applyFilter (PointCloud &output)
   min_b_[2] = static_cast<int> (floor (min_p[2] * inverse_leaf_size_[2]));
   max_b_[2] = static_cast<int> (floor (max_p[2] * inverse_leaf_size_[2]));
   
-  PCL_WARN("this is the max z value : %d\n", max_b_[2]);
+  PCL_WARN("this is the max value : %f , %f,  %f \n",max_p[0], max_p[1] ,max_p[2]);
   // Compute the number of divisions needed along all axis
   div_b_ = max_b_ - min_b_ + Eigen::Vector4i::Ones ();
   div_b_[3] = 0;
