@@ -149,7 +149,7 @@ pcl::UniformSampling<PointT>::applyFilter (PointCloud &output)
   
   for (typename boost::unordered_map<size_t, Leaf>::const_iterator it = leaves_.begin (); it != leaves_.end (); ++it){
     if(input_->points[it->second.idx].z > 300){   //This is green !!
-      PCL_WARN("This is green error one. %zu!\n", it->second.idx );
+      //PCL_WARN("This is green error one. %zu!\n", it->second.idx );
       continue;
     }
     output.points[cp++] = input_->points[it->second.idx];
