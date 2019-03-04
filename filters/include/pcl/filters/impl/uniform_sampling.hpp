@@ -103,10 +103,6 @@ pcl::UniformSampling<PointT>::applyFilter (PointCloud &output)
     ijk[0] = static_cast<int> (floor (input_->points[(*indices_)[cp]].x * inverse_leaf_size_[0]));
     ijk[1] = static_cast<int> (floor (input_->points[(*indices_)[cp]].y * inverse_leaf_size_[1]));
     ijk[2] = static_cast<int> (floor (input_->points[(*indices_)[cp]].z * inverse_leaf_size_[2]));
-    if(input_->points[(*indices_)[cp]].z > 200){
-      PCL_WARN("over 200!!: %zu \n",(*indices_)[cp]);
-      continue;
-    }
 
     // Compute the leaf index
     // vertex index can be larger than integer limit.
