@@ -53,10 +53,6 @@ pcl::UniformSampling<PointT>::applyFilter (PointCloud &output)
     output.points.clear ();
     return;
   }
-  PCL_WARN("test for uni sampling input_!!\n");
-  output.width = static_cast<int>(input_->points.size());
-  output = *input_;
-  return ;
 
   output.height       = 1;                    // downsampling breaks the organized structure
   output.is_dense     = true;                 // we filter out invalid points
@@ -72,7 +68,8 @@ pcl::UniformSampling<PointT>::applyFilter (PointCloud &output)
   max_b_[1] = static_cast<int> (floor (max_p[1] * inverse_leaf_size_[1]));
   min_b_[2] = static_cast<int> (floor (min_p[2] * inverse_leaf_size_[2]));
   max_b_[2] = static_cast<int> (floor (max_p[2] * inverse_leaf_size_[2]));
-
+  
+  PCL_WARN("this is the max z value : %d\n", max_b_[2]);
   // Compute the number of divisions needed along all axis
   div_b_ = max_b_ - min_b_ + Eigen::Vector4i::Ones ();
   div_b_[3] = 0;
@@ -122,8 +119,8 @@ pcl::UniformSampling<PointT>::applyFilter (PointCloud &output)
     }
 
     // Check to see if this point is closer to the leaf center than the previous one we saved
-    float diff_cur   = (input_->points[(*indices_)[cp]].getVector4fMap () - ijk.cast<float> ()).squaredNorm ();
-    float diff_prev  = (input_->points[leaf.idx].getVector4fMap ()        - ijk.cast<float> ()).squaredNorm ();
+    float diff_cur   = (input_->points[(*indices_)[cp]].getVector4fMap ().dot(inverse_leaf_size_) - ijk.cast<float> ()).squaredNorm ();
+    float diff_prev  = (input_->points[leaf.idx].getVector4fMap ().dot(inverse_leaf_size_)        - ijk.cast<float> ()).squaredNorm ();
 
     // If current point is closer, copy its index instead
     if (diff_cur < diff_prev)
