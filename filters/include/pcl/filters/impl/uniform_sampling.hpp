@@ -58,6 +58,9 @@ pcl::UniformSampling<PointT>::applyFilter (PointCloud &output)
   output.is_dense     = true;                 // we filter out invalid points
 
   Eigen::Vector4f min_p, max_p;
+  min_p = Eigen::Vector4f::Zero();
+  max_p = Eigen::Vector4f::Zero();
+
   // Get the minimum and maximum dimensions
   pcl::getMinMax3D<PointT>(*input_, min_p, max_p);
 
