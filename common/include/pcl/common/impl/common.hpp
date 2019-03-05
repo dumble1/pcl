@@ -290,7 +290,8 @@ pcl::getMinMax3D (const pcl::PointCloud<PointT> &cloud, Eigen::Vector4f &min_pt,
       pcl::Array4fMapConst pt = cloud.points[i].getArray4fMap ();
       min_p = min_p.min (pt);
       max_p = max_p.max (pt);
-      printf("this is the max 3D value : %f %f %f\n and pt : %f %f %f\n", max_p[0], max_p[1],max_p[2],pt[0],pt[1],pt[2]);
+      if(pt[2]>200)
+        printf("this is the max 3D value : %f %f %f\n and %zu th pt : %f %f %f\n", max_p[0], max_p[1],max_p[2],i ,pt[0],pt[1],pt[2]);
     }
   }
   // NaN or Inf values could exist => check for them
