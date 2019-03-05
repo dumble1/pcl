@@ -285,7 +285,7 @@ pcl::getMinMax3D (const pcl::PointCloud<PointT> &cloud, Eigen::Vector4f &min_pt,
   // If the data is dense, we don't need to check for NaN
   if (cloud.is_dense)
   {
-    for (size_t i = 0; i < cloud.points.size (); ++i)
+    for (pcl::PointCloud<PointT>::size_type i = 0; i < cloud.points.size (); ++i)
     {
       pcl::Array4fMapConst pt = cloud.points[i].getArray4fMap ();
       min_p = min_p.min (pt);
