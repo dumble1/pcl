@@ -61,6 +61,12 @@ pcl::UniformSampling<PointT>::applyFilter (PointCloud &output)
   min_p = Eigen::Vector4f::Zero();
   max_p = Eigen::Vector4f::Zero();
 
+  for(size_t i =0; i < input_->points.size();++i){
+    if(input_->points[i].z>200){
+      PCL_WARN("%zu th point is wrong: %f %f %f\n", input_->points[i].x,input_->points[i].y,input_->points[i].z);
+    }
+  }
+
   // Get the minimum and maximum dimensions
   pcl::getMinMax3D<PointT>(*input_, min_p, max_p);
 
