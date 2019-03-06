@@ -291,7 +291,7 @@ pcl::getMinMax3D (const pcl::PointCloud<PointT> &cloud, Eigen::Vector4f &min_pt,
       pcl::Array4fMapConst pt = (*i).getArray4fMap();
       min_p = min_p.min (pt);
       max_p = max_p.max (pt);
-      if(pt[2]>200)
+      if(pt[2]>200){
         printf("this is the max 3D value : %f %f %f %f\n and  %zu th pt : %f %f %f %f\n", max_p[0], max_p[1],max_p[2],max_p[3],(i-cloud.begin()) ,pt[0],pt[1],pt[2],pt[3]);
         printf("this is the point T : %f %f %f \n", i->x,i->y,i->z);
     }
