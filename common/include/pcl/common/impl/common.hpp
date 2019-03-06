@@ -285,13 +285,14 @@ pcl::getMinMax3D (const pcl::PointCloud<PointT> &cloud, Eigen::Vector4f &min_pt,
   // If the data is dense, we don't need to check for NaN
   if (cloud.is_dense)
   {
-    for (typename pcl::PointCloud<PointT>::iterator i = cloud.begin(); i != cloud.end(); ++i)
+    pcl::PointCloud<PointT>::iterator i;
+    for (i = cloud.begin(); i != cloud.end(); ++i)
     {
-      pcl::Array4fMapConst pt = (*i).getArray4fMap ();
+      pcl::Array4fMapConst pt = (*i).getArray4fMap();
       min_p = min_p.min (pt);
       max_p = max_p.max (pt);
       if(pt[2]>200)
-        printf("this is the max 3D value : %f %f %f\n and  th pt : %f %f %f\n", max_p[0], max_p[1],max_p[2] ,pt[0],pt[1],pt[2]);
+        printf("this is the max 3D value : %f %f %f\n and  %zu th pt : %f %f %f\n", max_p[0], max_p[1],max_p[2],(i-cloud.begin()) ,pt[0],pt[1],pt[2]);
     }
   }
   // NaN or Inf values could exist => check for them
