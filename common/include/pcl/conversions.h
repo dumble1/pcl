@@ -188,11 +188,12 @@ namespace pcl
         field_map[0].size == msg.point_step &&
         field_map[0].size == sizeof(PointT))
     {
-      uint32_t cloud_row_step = static_cast<uint32_t> (sizeof (PointT) * cloud.width);
+      size_t cloud_row_step = static_cast<size_t> (sizeof (PointT) * cloud.width);
       const uint8_t* msg_data = &msg.data[0];
       // Should usually be able to copy all rows at once
       if (msg.row_step == cloud_row_step)
       {
+        printf("memcpy at once!! row_step : %zu\n", cloud_row_step);
         memcpy (cloud_data, msg_data, msg.data.size ());
       }
       else
