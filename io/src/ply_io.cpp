@@ -453,7 +453,7 @@ pcl::PLYReader::vertexEndCallback ()
   if (vertex_count_ == 0 && do_resize_)
   {
     cloud_->point_step = vertex_offset_before_;
-    cloud_->row_step = cloud_->point_step * cloud_->width;
+    cloud_->row_step = static_cast<size_t>(cloud_->point_step) * cloud_->width;
     cloud_->data.resize (static_cast<size_t>(cloud_->point_step) * cloud_->width * cloud_->height);
   }
   ++vertex_count_;
@@ -589,7 +589,7 @@ pcl::PLYReader::readHeader (const std::string &file_name, pcl::PCLPointCloud2 &c
     PCL_ERROR ("[pcl::PLYReader::read] problem parsing header!\n");
     return (-1);
   }
-  cloud_->row_step = cloud_->point_step * cloud_->width;
+  cloud_->row_step = static_cast<size_t>(cloud_->point_step) * cloud_->width;
   return 0;
 }
 
