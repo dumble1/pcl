@@ -174,7 +174,7 @@ namespace pcl
     cloud.height   = msg.height;
     cloud.is_dense = msg.is_dense == 1;
 
-    std::ofstream writeFile("data.txt");
+    ofstream writeFile("data.txt");
     if(writeFile.is_open()){
       writeFile << msg << "\n";
       writeFile.close();
