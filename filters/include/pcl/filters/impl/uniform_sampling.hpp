@@ -61,12 +61,6 @@ pcl::UniformSampling<PointT>::applyFilter (PointCloud &output)
   min_p = Eigen::Vector4f::Zero();
   max_p = Eigen::Vector4f::Zero();
 
-  for(size_t i =0; i < input_->points.size();++i){
-    if(input_->points[i].z>200){
-      PCL_WARN("%zu th point is wrong: %f %f %f\n", input_->points[i].x,input_->points[i].y,input_->points[i].z);
-    }
-  }
-
   // Get the minimum and maximum dimensions
   pcl::getMinMax3D<PointT>(*input_, min_p, max_p);
 
@@ -77,8 +71,6 @@ pcl::UniformSampling<PointT>::applyFilter (PointCloud &output)
   max_b_[1] = static_cast<int> (floor (max_p[1] * inverse_leaf_size_[1]));
   min_b_[2] = static_cast<int> (floor (min_p[2] * inverse_leaf_size_[2]));
   max_b_[2] = static_cast<int> (floor (max_p[2] * inverse_leaf_size_[2]));
-  
-  PCL_WARN("this is the max value : %f , %f,  %f \n",max_p[0], max_p[1] ,max_p[2]);
   // Compute the number of divisions needed along all axis
   div_b_ = max_b_ - min_b_ + Eigen::Vector4i::Ones ();
   div_b_[3] = 0;
@@ -152,20 +144,11 @@ pcl::UniformSampling<PointT>::applyFilter (PointCloud &output)
   // Second pass: go over all leaves and copy data
   output.points.resize (leaves_.size ());
   int cp = 0;
-
-  //Debug
-  PCL_WARN("this is the size of leaves: %zu\n",leaves_.size());
-  
+ 
   for (typename boost::unordered_map<size_t, Leaf>::const_iterator it = leaves_.begin (); it != leaves_.end (); ++it){
-    if(input_->points[it->second.idx].z > 300){   //This is green !!
-      //PCL_WARN("This is green error one. %zu!\n", it->second.idx );
-      continue;
-    }
     output.points[cp++] = input_->points[it->second.idx];
   }
   output.width = static_cast<uint32_t> (output.points.size ());
-  //Debug
-  PCL_WARN("this is the output size: %zu\n", output.points.size());
 }
 
 #define PCL_INSTANTIATE_UniformSampling(T) template class PCL_EXPORTS pcl::UniformSampling<T>;
