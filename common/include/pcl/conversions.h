@@ -197,6 +197,7 @@ namespace pcl
       }
       else
       {
+        printf("not once..\n");
         for (uint32_t i = 0; i < msg.height; ++i, cloud_data += cloud_row_step, msg_data += msg.row_step)
           memcpy (cloud_data, msg_data, cloud_row_step);
       }
@@ -204,13 +205,14 @@ namespace pcl
     }
     else
     {
+      printf("copy sepeartely\n");
       // If not, memcpy each group of contiguous fields separately
       for (uint32_t row = 0; row < msg.height; ++row)
       {
         const uint8_t* row_data = &msg.data[row * msg.row_step];
         for (uint32_t col = 0; col < msg.width; ++col)
         {
-          const uint8_t* msg_data = row_data + col * msg.point_step;
+          const uint8_t* msg_data = row_data + static_cast<size_t>(col) * msg.point_step;
           BOOST_FOREACH (const detail::FieldMapping& mapping, field_map)
           {
             memcpy (cloud_data + mapping.struct_offset, msg_data + mapping.serialized_offset, mapping.size);
