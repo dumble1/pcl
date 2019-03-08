@@ -173,12 +173,6 @@ namespace pcl
     cloud.width    = msg.width;
     cloud.height   = msg.height;
     cloud.is_dense = msg.is_dense == 1;
-
-    ofstream writeFile("data.txt");
-    if(writeFile.is_open()){
-      writeFile << msg << "\n";
-      writeFile.close();
-    }
     // Copy point data
     uint32_t num_points = msg.width * msg.height;
     cloud.points.resize (num_points);
