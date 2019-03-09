@@ -108,9 +108,9 @@ pcl::UniformSampling<PointT>::applyFilter (PointCloud &output)
     // Compute the leaf index
     // vertex index can be larger than integer limit.
     
-    //size_t idx = (ijk - min_b_).dot (divb_mul_);  
+    int idx = (ijk - min_b_).dot (divb_mul_);  
     Eigen::Vector4i tmp_ijk = (ijk-min_b_);
-    size_t idx = static_cast<size_t>(tmp_ijk[0])*divb_mul_[0]+ static_cast<size_t>(tmp_ijk[1])*divb_mul_[1]+ static_cast<size_t>(tmp_ijk[2])*divb_mul_[2];
+    //size_t idx = static_cast<size_t>(tmp_ijk[0])*divb_mul_[0]+ static_cast<size_t>(tmp_ijk[1])*divb_mul_[1]+ static_cast<size_t>(tmp_ijk[2])*divb_mul_[2];
     Leaf& leaf = leaves_[idx];
     // First time we initialize the index
     if (leaf.idx == -1)
@@ -126,8 +126,8 @@ pcl::UniformSampling<PointT>::applyFilter (PointCloud &output)
     centre[1] = ijk[1] * leaf_size_[1];
     centre[2] = ijk[2] * leaf_size_[2];
     
-    float diff_cur   = (input_->points[(*indices_)[cp]].getVector4fMap () - centre.cast<float> ()).squaredNorm ();
-    float diff_prev  = (input_->points[leaf.idx].getVector4fMap ()        - centre.cast<float> ()).squaredNorm ();
+    float diff_cur   = (input_->points[(*indices_)[cp]].getVector4fMap () - ijk.cast<float> ()).squaredNorm ();
+    float diff_prev  = (input_->points[leaf.idx].getVector4fMap ()        - ijk.cast<float> ()).squaredNorm ();
 
     // If current point is closer, copy its index instead
     if (diff_cur < diff_prev)

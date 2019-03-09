@@ -40,8 +40,8 @@ namespace pcl
 
     pcl::uint8_t is_bigendian;
     pcl::uint32_t point_step;
-    //pcl::uint32_t row_step;
-    std::size_t row_step;
+    pcl::uint32_t row_step;
+    //std::size_t row_step;
 
     std::vector<pcl::uint8_t> data;
 

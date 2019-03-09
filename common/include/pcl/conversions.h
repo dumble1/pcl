@@ -201,7 +201,6 @@ namespace pcl
         for (uint32_t i = 0; i < msg.height; ++i, cloud_data += cloud_row_step, msg_data += msg.row_step)
           memcpy (cloud_data, msg_data, cloud_row_step);
       }
-
     }
     else
     {
