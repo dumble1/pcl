@@ -192,19 +192,19 @@ namespace pcl
       // Should usually be able to copy all rows at once
       if (msg.row_step == cloud_row_step)
       {
-        printf("memcpy at once!! row_step : %zu\n", cloud_row_step);
+        //printf("memcpy at once!! row_step : %zu\n", cloud_row_step);
         memcpy (cloud_data, msg_data, msg.data.size ());
       }
       else
       {
-        printf("not once..\n");
+        //printf("not once..\n");
         for (uint32_t i = 0; i < msg.height; ++i, cloud_data += cloud_row_step, msg_data += msg.row_step)
           memcpy (cloud_data, msg_data, cloud_row_step);
       }
     }
     else
     {
-      printf("copy sepeartely\n");
+      //printf("copy sepeartely\n");
       // If not, memcpy each group of contiguous fields separately
       for (uint32_t row = 0; row < msg.height; ++row)
       {
